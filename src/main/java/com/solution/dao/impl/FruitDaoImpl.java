@@ -1,7 +1,9 @@
 package com.solution.dao.impl;
 
 import java.util.Map;
+import java.util.Optional;
 import com.solution.dao.FruitDao;
+import com.solution.dto.FruitDto;
 import com.solution.model.Fruit;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +19,19 @@ public class FruitDaoImpl implements FruitDao {
     public Map<Fruit, Long> save(Fruit fruit, Long quantity) {
         fruits.put(fruit, quantity);
         return fruits;
+    }
+
+    @Override
+    public boolean existed(Fruit fruit) {
+        return fruits.containsKey(fruit);
+    }
+
+    @Override
+    public FruitDto getFruitDtoByFruit(Fruit fruit) {
+        FruitDto fruitDto = new FruitDto();
+        fruitDto.setFruit(fruit);
+        fruitDto.setQuantity(fruits.get(fruit));
+        return Optional.of(fruitDto);
     }
 
     @Override

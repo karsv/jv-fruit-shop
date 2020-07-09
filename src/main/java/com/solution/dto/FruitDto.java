@@ -1,11 +1,13 @@
 package com.solution.dto;
 
-import lombok.Data;
+import com.solution.model.Fruit;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class FruitDto {
-    private String type;
-    private String fruit;
-    private String quantity;
-    private String date;
+    private Fruit fruit;
+    private Long quantity;
+
 }
