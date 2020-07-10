@@ -49,6 +49,14 @@ public class FruitServiceImpl implements FruitService {
         return fruitDao.save(fruit, quantity);
     }
 
+    @Override
+    public FruitDto getFruit(Fruit fruit) {
+        if (fruitDao.existed(fruit)) {
+            return fruitDao.getFruitDtoByFruit(fruit);
+        }
+        throw new FruitException("No such fruit!");
+    }
+
     private boolean checkQuantity(Long controlQuantity, Long checkedQuantity) {
         if (checkedQuantity > controlQuantity) {
             throw new FruitException("Not enough fruits!");

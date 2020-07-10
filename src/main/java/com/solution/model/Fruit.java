@@ -5,7 +5,7 @@ import java.util.Objects;
 import lombok.Data;
 
 @Data
-public class Fruit implements Good {
+public class Fruit {
     private String fruit;
     private LocalDate date;
 

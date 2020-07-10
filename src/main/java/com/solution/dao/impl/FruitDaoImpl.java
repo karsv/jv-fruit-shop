@@ -1,12 +1,9 @@
 package com.solution.dao.impl;
 
 import java.util.Map;
-import java.util.Optional;
 import com.solution.dao.FruitDao;
 import com.solution.dto.FruitDto;
 import com.solution.model.Fruit;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 @Repository
