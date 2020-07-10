@@ -4,25 +4,39 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import com.solution.controller.events.FruitEvent;
+import com.solution.controller.events.impl.SupplyFruitEvent;
 import com.solution.dto.FruitCsvDto;
 import com.solution.dto.FruitDto;
 import com.solution.factory.FruitFactory;
-import com.solution.model.Fruit;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventController {
     private final FruitFactory fruitFactory;
 
+    private final FruitEvent buyEvent;
+    private final FruitEvent returnEvent;
+    private final FruitEvent supplyEvent;
+
     private Map<String, FruitEvent> events;
 
-    public EventController(FruitFactory fruitFactory) {
+    public EventController(FruitFactory fruitFactory,
+                           @Qualifier(value = "BuyFruitEvent") FruitEvent buyEvent,
+                           @Qualifier(value = "ReturnFruitEvent") FruitEvent returnEvent,
+                           @Qualifier(value = "SupplyFruitEvent") FruitEvent supplyEvent) {
         this.fruitFactory = fruitFactory;
+        this.buyEvent = buyEvent;
+        this.returnEvent = returnEvent;
+        this.supplyEvent = supplyEvent;
     }
 
     @PostConstruct
     private void init() {
         events = new HashMap();
+        events.put("s", supplyEvent);
+        events.put("b", buyEvent);
+        events.put("r", returnEvent);
     }
 
     public FruitDto executeEvent(FruitCsvDto fruit) {
