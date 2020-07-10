@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FruitDao {
-    Map<Fruit, Long> save(Fruit fruit, Long quantity);
+    FruitDto save(Fruit fruit, Long quantity);
 
     boolean existed(Fruit fruit);
 

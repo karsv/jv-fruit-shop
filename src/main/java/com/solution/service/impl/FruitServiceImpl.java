@@ -18,7 +18,7 @@ public class FruitServiceImpl implements FruitService {
     }
 
     @Override
-    public Map<Fruit, Long> supply(Fruit fruit, Long quantity) {
+    public FruitDto supply(Fruit fruit, Long quantity) {
         if (fruitDao.existed(fruit)) {
             FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(fruit);
             Long newQuantity = fruitDtoByFruit.getQuantity() + quantity;
@@ -28,7 +28,7 @@ public class FruitServiceImpl implements FruitService {
     }
 
     @Override
-    public Map<Fruit, Long> buy(Fruit fruit, Long quantity) {
+    public FruitDto buy(Fruit fruit, Long quantity) {
         if (fruitDao.existed(fruit)) {
             FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(fruit);
             checkQuantity(fruitDtoByFruit.getQuantity(), quantity);
@@ -40,7 +40,7 @@ public class FruitServiceImpl implements FruitService {
     }
 
     @Override
-    public Map<Fruit, Long> returnFruit(Fruit fruit, Long quantity) {
+    public FruitDto returnFruit(Fruit fruit, Long quantity) {
         if (fruitDao.existed(fruit)) {
             FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(fruit);
             Long newQuantity = fruitDtoByFruit.getQuantity() + quantity;

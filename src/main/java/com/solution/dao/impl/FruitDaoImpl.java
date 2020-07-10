@@ -15,9 +15,9 @@ public class FruitDaoImpl implements FruitDao {
     }
 
     @Override
-    public Map<Fruit, Long> save(Fruit fruit, Long quantity) {
+    public FruitDto save(Fruit fruit, Long quantity) {
         fruits.put(fruit, quantity);
-        return fruits;
+        return getFruitDtoByFruit(fruit);
     }
 
     @Override
