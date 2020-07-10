@@ -43,22 +43,21 @@ public class FruitServiceImpl implements FruitService {
     public Map<Fruit, Long> returnFruit(Fruit fruit, Long quantity) {
         if (fruitDao.existed(fruit)) {
             FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(fruit);
-
             Long newQuantity = fruitDtoByFruit.getQuantity() + quantity;
             fruitDao.save(fruit, newQuantity);
         }
         return fruitDao.save(fruit, quantity);
     }
 
-    private boolean checkQuantity(Long controlQuantity, Long checkedQuantity){
-        if(checkedQuantity > controlQuantity){
+    private boolean checkQuantity(Long controlQuantity, Long checkedQuantity) {
+        if (checkedQuantity > controlQuantity) {
             throw new FruitException("Not enough fruits!");
         }
         return true;
     }
 
-    private boolean checkExpiring(LocalDate controlDate, LocalDate checkedDate){
-        if(checkedDate.isAfter(controlDate)){
+    private boolean checkExpiring(LocalDate controlDate, LocalDate checkedDate) {
+        if (checkedDate.isAfter(controlDate)) {
             throw new FruitException("The fruit expired!");
         }
         return true;

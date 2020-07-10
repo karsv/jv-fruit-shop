@@ -5,6 +5,8 @@ import java.util.Optional;
 import com.solution.dao.FruitDao;
 import com.solution.dto.FruitDto;
 import com.solution.model.Fruit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -31,7 +33,7 @@ public class FruitDaoImpl implements FruitDao {
         FruitDto fruitDto = new FruitDto();
         fruitDto.setFruit(fruit);
         fruitDto.setQuantity(fruits.get(fruit));
-        return Optional.of(fruitDto);
+        return fruitDto;
     }
 
     @Override

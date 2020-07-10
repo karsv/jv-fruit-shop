@@ -1,4 +1,4 @@
-package com.solution;
+package com.solution.factory;
 
 import java.time.LocalDate;
 import com.solution.dto.FruitCsvDto;
@@ -10,7 +10,6 @@ public class GoodFactory {
     public Fruit crateFruit(FruitCsvDto fruitDto) {
         Fruit fruit = new Fruit();
         fruit.setFruit(fruitDto.getFruit());
-        fruit.setQuantity(Long.valueOf(fruitDto.getQuantity()));
         fruit.setDate(LocalDate.parse(fruitDto.getDate()));
         return fruit;
     }
