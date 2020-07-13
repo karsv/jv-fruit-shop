@@ -1,8 +1,14 @@
 package com.solution.dao.impl;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.Set;
 import com.solution.dao.FruitDao;
 import com.solution.dto.FruitDto;
+import com.solution.exceptions.FruitException;
 import com.solution.model.Fruit;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +40,44 @@ public class FruitDaoImpl implements FruitDao {
     }
 
     @Override
+    public Fruit getFirstExpiredFruit(Fruit fruit) {
+        ArrayList<Fruit> list = new ArrayList();
+        Set<Fruit> fruitNames = this.fruits.keySet();
+
+        fruitNames.stream()
+                .forEach(f -> {
+                    if (f.getFruit().equals(fruit.getFruit())) {
+                        list.add(f);
+                    }
+                });
+
+        if (list.size() == 0) {
+            throw new FruitException("There isn't fruit with such name!");
+        }
+
+        Collections.sort(list, (Fruit f1, Fruit f2) -> Comparator.comparing(Fruit::getDate).compare(f1, f2));
+
+        for (Fruit f : list) {
+            try {
+                if (checkExpiring(f.getDate(), fruit.getDate())) {
+                    return f;
+                }
+            } catch (FruitException e) {
+                continue;
+            }
+        }
+        throw new FruitException("All such fruits are expired!");
+    }
+
+    @Override
     public Map<Fruit, Long> getAll() {
         return fruits;
+    }
+
+    private boolean checkExpiring(LocalDate controlDate, LocalDate checkedDate) {
+        if (checkedDate.isAfter(controlDate)) {
+            throw new FruitException("The fruit expired!");
+        }
+        return true;
     }
 }

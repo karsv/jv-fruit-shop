@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import com.solution.controller.events.FruitEvent;
-import com.solution.controller.events.impl.SupplyFruitEvent;
 import com.solution.dto.FruitCsvDto;
 import com.solution.dto.FruitDto;
 import com.solution.factory.FruitFactory;
@@ -22,9 +21,9 @@ public class EventController {
     private Map<String, FruitEvent> events;
 
     public EventController(FruitFactory fruitFactory,
-                           @Qualifier(value = "BuyFruitEvent") FruitEvent buyEvent,
-                           @Qualifier(value = "ReturnFruitEvent") FruitEvent returnEvent,
-                           @Qualifier(value = "SupplyFruitEvent") FruitEvent supplyEvent) {
+                           @Qualifier("buyFruitEvent") FruitEvent buyEvent,
+                           @Qualifier("returnFruitEvent") FruitEvent returnEvent,
+                           @Qualifier("supplyFruitEvent") FruitEvent supplyEvent) {
         this.fruitFactory = fruitFactory;
         this.buyEvent = buyEvent;
         this.returnEvent = returnEvent;

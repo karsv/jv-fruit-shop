@@ -1,6 +1,5 @@
 package com.solution.service.impl;
 
-import java.time.LocalDate;
 import java.util.Map;
 import com.solution.dao.FruitDao;
 import com.solution.dto.FruitDto;
@@ -29,12 +28,13 @@ public class FruitServiceImpl implements FruitService {
 
     @Override
     public FruitDto buy(Fruit fruit, Long quantity) {
-        if (fruitDao.existed(fruit)) {
-            FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(fruit);
+        Fruit firstExpiredFruit = fruitDao.getFirstExpiredFruit(fruit);
+
+        if (fruitDao.existed(firstExpiredFruit)) {
+            FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(firstExpiredFruit);
             checkQuantity(fruitDtoByFruit.getQuantity(), quantity);
-            checkExpiring(fruitDtoByFruit.getFruit().getDate(), fruit.getDate());
             Long newQuantity = fruitDtoByFruit.getQuantity() - quantity;
-            fruitDao.save(fruitDtoByFruit.getFruit(), newQuantity);
+            return fruitDao.save(fruitDtoByFruit.getFruit(), newQuantity);
         }
         throw new FruitException("No such fruit!");
     }
@@ -44,7 +44,7 @@ public class FruitServiceImpl implements FruitService {
         if (fruitDao.existed(fruit)) {
             FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(fruit);
             Long newQuantity = fruitDtoByFruit.getQuantity() + quantity;
-            fruitDao.save(fruit, newQuantity);
+            return fruitDao.save(fruit, newQuantity);
         }
         return fruitDao.save(fruit, quantity);
     }
@@ -57,16 +57,14 @@ public class FruitServiceImpl implements FruitService {
         throw new FruitException("No such fruit!");
     }
 
+    @Override
+    public Map<Fruit, Long> getAll() {
+        return fruitDao.getAll();
+    }
+
     private boolean checkQuantity(Long controlQuantity, Long checkedQuantity) {
         if (checkedQuantity > controlQuantity) {
             throw new FruitException("Not enough fruits!");
-        }
-        return true;
-    }
-
-    private boolean checkExpiring(LocalDate controlDate, LocalDate checkedDate) {
-        if (checkedDate.isAfter(controlDate)) {
-            throw new FruitException("The fruit expired!");
         }
         return true;
     }

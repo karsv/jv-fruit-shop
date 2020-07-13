@@ -13,5 +13,7 @@ public interface FruitDao {
 
     FruitDto getFruitDtoByFruit(Fruit fruit);
 
+    Fruit getFirstExpiredFruit(Fruit fruit);
+
     Map<Fruit, Long> getAll();
 }

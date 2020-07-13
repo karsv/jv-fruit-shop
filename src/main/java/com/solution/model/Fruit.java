@@ -22,4 +22,9 @@ public class Fruit {
     public int hashCode() {
         return Objects.hash(getFruit(), getDate());
     }
+
+    @Override
+    public String toString() {
+        return fruit + ", " + date.toString();
+    }
 }
