@@ -32,7 +32,13 @@ public class FruitController {
         try {
             List<FruitCsvDto> fruitCsvDtos = csvReader.readFile(path);
             fruitCsvDtos.stream()
-                    .forEach(e -> eventController.executeEvent(e));
+                    .forEach(f -> {
+                        try {
+                            eventController.executeEvent(f);
+                        } catch (RuntimeException e) {
+                            return;
+                        }
+                    });
             csvReader.writeFile(convertFruitToStat(fruitService.getAll()),
                     path.substring(0, path.lastIndexOf('/')) + "/" + "result.csv");
         } catch (IOException e) {
