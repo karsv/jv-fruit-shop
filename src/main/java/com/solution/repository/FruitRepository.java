@@ -1,8 +1,8 @@
 package com.solution.repository;
 
+import com.solution.model.Fruit;
 import java.util.HashMap;
 import java.util.Map;
-import com.solution.model.Fruit;
 import org.springframework.context.annotation.Bean;
 
 public class FruitRepository {

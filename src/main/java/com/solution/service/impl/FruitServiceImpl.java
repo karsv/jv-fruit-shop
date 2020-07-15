@@ -1,11 +1,11 @@
 package com.solution.service.impl;
 
-import java.util.Map;
 import com.solution.dao.FruitDao;
 import com.solution.dto.FruitDto;
 import com.solution.exceptions.FruitException;
 import com.solution.model.Fruit;
 import com.solution.service.FruitService;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,31 +30,20 @@ public class FruitServiceImpl implements FruitService {
     public FruitDto buy(Fruit fruit, Long quantity) {
         Fruit firstExpiredFruit = fruitDao.getFirstExpiredFruit(fruit);
 
-        if (fruitDao.existed(firstExpiredFruit)) {
-            FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(firstExpiredFruit);
-            checkQuantity(fruitDtoByFruit.getQuantity(), quantity);
-            Long newQuantity = fruitDtoByFruit.getQuantity() - quantity;
-            return fruitDao.save(fruitDtoByFruit.getFruit(), newQuantity);
-        }
-        throw new FruitException("No such fruit!");
+        FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(firstExpiredFruit);
+        checkQuantity(fruitDtoByFruit.getQuantity(), quantity);
+        Long newQuantity = fruitDtoByFruit.getQuantity() - quantity;
+        return fruitDao.save(fruitDtoByFruit.getFruit(), newQuantity);
     }
 
     @Override
     public FruitDto returnFruit(Fruit fruit, Long quantity) {
-        if (fruitDao.existed(fruit)) {
-            FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(fruit);
-            Long newQuantity = fruitDtoByFruit.getQuantity() + quantity;
-            return fruitDao.save(fruit, newQuantity);
+        if (!fruitDao.existed(fruit)) {
+            throw new FruitException("No such fruit!");
         }
-        return fruitDao.save(fruit, quantity);
-    }
-
-    @Override
-    public FruitDto getFruit(Fruit fruit) {
-        if (fruitDao.existed(fruit)) {
-            return fruitDao.getFruitDtoByFruit(fruit);
-        }
-        throw new FruitException("No such fruit!");
+        FruitDto fruitDtoByFruit = fruitDao.getFruitDtoByFruit(fruit);
+        Long newQuantity = fruitDtoByFruit.getQuantity() + quantity;
+        return fruitDao.save(fruit, newQuantity);
     }
 
     @Override

@@ -1,21 +1,24 @@
 package com.solution.util.impl;
 
+import com.solution.dto.FruitCsvDto;
+import com.solution.dto.FruitForStatDto;
+import com.solution.util.CsvReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import com.solution.dto.FruitCsvDto;
-import com.solution.dto.FruitForStatDto;
-import com.solution.util.CsvReader;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CsvReaderImpl implements CsvReader {
+    private static final Logger logger = LogManager.getLogger(CsvReaderImpl.class);
     private static final String[] INPUT_HEADERS = {"type", "fruit", "quantity", "date"};
     private static final String[] OUTPUT_HEADERS = {"fruit", "date", "quantity"};
 
@@ -50,10 +53,10 @@ public class CsvReaderImpl implements CsvReader {
                 try {
                     printer.printRecord(fruit.getName(), fruit.getDate(), fruit.getQuantity());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e);
                 }
             });
         }
-        return false;
+        return true;
     }
 }

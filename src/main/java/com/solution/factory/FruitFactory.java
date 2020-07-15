@@ -1,13 +1,14 @@
 package com.solution.factory;
 
-import java.time.LocalDate;
 import com.solution.dto.FruitCsvDto;
 import com.solution.dto.FruitDto;
 import com.solution.model.Fruit;
+import java.time.LocalDate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FruitFactory {
+
     public FruitDto createFruit(FruitCsvDto fruitCsvDto) {
         Fruit fruit = new Fruit();
         fruit.setFruit(fruitCsvDto.getFruit());

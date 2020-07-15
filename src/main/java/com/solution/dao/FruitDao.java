@@ -1,8 +1,8 @@
 package com.solution.dao;
 
-import java.util.Map;
 import com.solution.dto.FruitDto;
 import com.solution.model.Fruit;
+import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 @Repository

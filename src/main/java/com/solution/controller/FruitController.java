@@ -1,21 +1,21 @@
 package com.solution.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import com.solution.dto.FruitCsvDto;
 import com.solution.dto.FruitForStatDto;
 import com.solution.model.Fruit;
 import com.solution.service.FruitService;
 import com.solution.util.CsvReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FruitController {
-    private final static Logger logger = LogManager.getLogger(FruitController.class);
+    private static final Logger logger = LogManager.getLogger(FruitController.class);
     private final CsvReader csvReader;
     private final EventController eventController;
     private final FruitService fruitService;

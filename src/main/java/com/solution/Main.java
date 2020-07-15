@@ -1,4 +1,4 @@
-package com.solution.main;
+package com.solution;
 
 import com.solution.controller.FruitController;
 import org.springframework.context.ApplicationContext;
@@ -9,6 +9,6 @@ public class Main {
         ApplicationContext ctx =
                 new AnnotationConfigApplicationContext("com.solution");
         FruitController bean = ctx.getBean(FruitController.class);
-        bean.run("src/main/resources/test.csv");
+        bean.run(args[0]);
     }
 }

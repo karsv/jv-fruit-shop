@@ -11,11 +11,15 @@ public class Fruit {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Fruit)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Fruit)) {
+            return false;
+        }
         Fruit fruit1 = (Fruit) o;
-        return getFruit().equals(fruit1.getFruit()) &&
-                getDate().equals(fruit1.getDate());
+        return getFruit().equals(fruit1.getFruit())
+                && getDate().equals(fruit1.getDate());
     }
 
     @Override

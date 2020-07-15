@@ -1,15 +1,15 @@
 package com.solution.dao.impl;
 
+import com.solution.dao.FruitDao;
+import com.solution.dto.FruitDto;
+import com.solution.exceptions.FruitException;
+import com.solution.model.Fruit;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
-import com.solution.dao.FruitDao;
-import com.solution.dto.FruitDto;
-import com.solution.exceptions.FruitException;
-import com.solution.model.Fruit;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -55,18 +55,14 @@ public class FruitDaoImpl implements FruitDao {
             throw new FruitException("There isn't fruit with such name!");
         }
 
-        Collections.sort(list, (Fruit f1, Fruit f2) -> Comparator.comparing(Fruit::getDate).compare(f1, f2));
+        Collections.sort(list, (Fruit f1, Fruit f2)
+                -> Comparator.comparing(Fruit::getDate).compare(f1, f2));
 
-        for (Fruit f : list) {
-            try {
-                if (checkExpiring(f.getDate(), fruit.getDate())) {
-                    return f;
-                }
-            } catch (FruitException e) {
-                continue;
-            }
-        }
-        throw new FruitException("All such fruits are expired!");
+        return list.stream()
+                .filter(f -> checkExpiring(f.getDate(), fruit.getDate()))
+                .findFirst()
+                .orElseThrow(() -> new FruitException("All such fruits are expired!"));
+
     }
 
     @Override
@@ -75,9 +71,6 @@ public class FruitDaoImpl implements FruitDao {
     }
 
     private boolean checkExpiring(LocalDate controlDate, LocalDate checkedDate) {
-        if (checkedDate.isAfter(controlDate)) {
-            throw new FruitException("The fruit expired!");
-        }
-        return true;
+        return !checkedDate.isAfter(controlDate);
     }
 }
