@@ -1,4 +1,4 @@
-# To run project use argument parametr as path to csv file
+# To run project use argument parameter as path to csv file
 
 # JUnit practice
 
