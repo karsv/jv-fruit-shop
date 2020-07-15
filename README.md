@@ -1,3 +1,5 @@
+# To run project use argument parametr as path to csv file
+
 # JUnit practice
 
 Your task is to implement the following requirements and cover at least 80% of your code with JUnit tests.
