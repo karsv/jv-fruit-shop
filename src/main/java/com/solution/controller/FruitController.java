@@ -1,5 +1,6 @@
 package com.solution.controller;
 
+import com.solution.controller.events.FruitOperation;
 import com.solution.dto.FruitCsvDto;
 import com.solution.dto.FruitForStatDto;
 import com.solution.model.Fruit;
@@ -19,13 +20,16 @@ public class FruitController {
     private final CsvReader csvReader;
     private final EventController eventController;
     private final FruitService fruitService;
+    private final Map<String, FruitOperation> fruitOperations;
 
     public FruitController(CsvReader csvReader,
                            EventController eventController,
-                           FruitService fruitService) {
+                           FruitService fruitService,
+                           Map<String, FruitOperation> fruitOperations) {
         this.csvReader = csvReader;
         this.eventController = eventController;
         this.fruitService = fruitService;
+        this.fruitOperations = fruitOperations;
     }
 
     public void run(String path) {

@@ -6,9 +6,11 @@ import com.solution.dto.FruitForStatDto;
 import com.solution.util.CsvReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -28,7 +30,7 @@ class CsvReaderImplTest {
 
     @Test
     void readFile() throws IOException {
-        ArrayList<FruitCsvDto> list = new ArrayList();
+        List<FruitCsvDto> list = new ArrayList<>();
         FruitCsvDto dto1 = new FruitCsvDto();
         dto1.setType("s");
         dto1.setFruit("banana");
@@ -55,7 +57,7 @@ class CsvReaderImplTest {
 
     @Test
     void writeFile() throws IOException {
-        ArrayList<FruitForStatDto> list = new ArrayList();
+        List<FruitForStatDto> list = new ArrayList<>();
         FruitForStatDto dto1 = new FruitForStatDto();
         dto1.setName("Vodka");
         dto1.setQuantity("3");

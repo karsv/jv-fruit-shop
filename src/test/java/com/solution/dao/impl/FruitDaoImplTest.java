@@ -7,12 +7,13 @@ import com.solution.model.Fruit;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 class FruitDaoImplTest {
@@ -62,7 +63,7 @@ class FruitDaoImplTest {
     void save() {
         when(fruits.get(fruit)).thenReturn(QUANTITY);
         when(fruits.put(fruit, QUANTITY)).thenReturn(QUANTITY);
-        assertTrue(fruitDao.save(fruit, QUANTITY) instanceof FruitDto);
+        assertEquals(fruitDto, fruitDao.save(fruit, QUANTITY));
     }
 
     @Test
@@ -75,11 +76,11 @@ class FruitDaoImplTest {
 
     @Test
     void getFirstExpiredFruit() {
-        HashSet set = new HashSet();
+        Set<Fruit> set = new HashSet();
         set.add(fruit);
         set.add(notExistedFruit);
 
-        HashSet emptyHashSet = new HashSet();
+        HashSet emptyHashSet = new HashSet<>();
         when(fruits.keySet()).thenReturn(set);
         assertEquals(fruit, fruitDao.getFirstExpiredFruit(fruitToFind));
         when(fruits.keySet()).thenReturn(emptyHashSet);

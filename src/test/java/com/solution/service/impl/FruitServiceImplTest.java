@@ -8,9 +8,11 @@ import com.solution.model.Fruit;
 import com.solution.service.FruitService;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -153,7 +155,7 @@ public class FruitServiceImplTest {
 
     @Test
     void getAll() {
-        HashMap<Fruit, Long> fruits = new HashMap();
+        Map<Fruit, Long> fruits = new HashMap<>();
         Fruit fruit1 = new Fruit();
         fruit1.setFruit(GETALL_FRUIT1);
         fruit1.setDate(GETALL_DATE);

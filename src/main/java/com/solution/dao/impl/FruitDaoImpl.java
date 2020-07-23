@@ -6,7 +6,6 @@ import com.solution.exceptions.FruitException;
 import com.solution.model.Fruit;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
@@ -45,24 +44,19 @@ public class FruitDaoImpl implements FruitDao {
         Set<Fruit> fruitNames = this.fruits.keySet();
 
         fruitNames.stream()
-                .forEach(f -> {
-                    if (f.getFruit().equals(fruit.getFruit())) {
-                        list.add(f);
-                    }
-                });
+                .filter(f -> f.getFruit().equals(fruit.getFruit()))
+                .forEach(list::add);
 
         if (list.size() == 0) {
             throw new FruitException("There isn't fruit with such name!");
         }
 
-        Collections.sort(list, (Fruit f1, Fruit f2)
-                -> Comparator.comparing(Fruit::getDate).compare(f1, f2));
+        list.sort((Fruit f1, Fruit f2) -> Comparator.comparing(Fruit::getDate).compare(f1, f2));
 
         return list.stream()
                 .filter(f -> checkExpiring(f.getDate(), fruit.getDate()))
                 .findFirst()
                 .orElseThrow(() -> new FruitException("All such fruits are expired!"));
-
     }
 
     @Override
