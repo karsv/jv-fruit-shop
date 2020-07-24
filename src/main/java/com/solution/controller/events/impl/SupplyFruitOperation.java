@@ -6,24 +6,16 @@ import com.solution.exceptions.FruitEventException;
 import com.solution.service.FruitService;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("s")
 public class SupplyFruitOperation implements FruitOperation {
     private final FruitService fruitService;
 
-    private final String operation;
-
     public SupplyFruitOperation(FruitService fruitService) {
         this.fruitService = fruitService;
-        this.operation = "s";
     }
 
     @Override
     public FruitDto execute(FruitDto fruitDto) throws FruitEventException {
         return fruitService.supply(fruitDto.getFruit(), fruitDto.getQuantity());
-    }
-
-    @Override
-    public String getOperation() {
-        return this.operation;
     }
 }

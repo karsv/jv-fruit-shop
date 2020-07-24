@@ -5,7 +5,6 @@ import com.solution.dto.FruitCsvDto;
 import com.solution.dto.FruitDto;
 import com.solution.factory.FruitFactory;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,8 +13,7 @@ public class EventController {
     private final Map<String, FruitOperation> fruitOperations;
 
     public EventController(FruitFactory fruitFactory,
-                           @Qualifier("getFruitOperations")
-                                   Map<String, FruitOperation> fruitOperations) {
+                           Map<String, FruitOperation> fruitOperations) {
         this.fruitFactory = fruitFactory;
         this.fruitOperations = fruitOperations;
     }
